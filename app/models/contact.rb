@@ -32,6 +32,13 @@ class Contact < ApplicationRecord
     contact
   end
 
+  def self.delete_by_id(id)
+    contact = Contact.find_by_id id
+    return false if contact.nil?
+    return false unless contact.delete
+    true
+  end
+
   def self.serialize(obj)
     obj.to_json only: %i[id name email address phone],
                 include: { social_networks: { only: %i[type url number] } }

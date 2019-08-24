@@ -20,7 +20,10 @@ class ContactsController < ApplicationController
   end
 
   def destroy
-    
+    contact_id = params[:contact_id]
+    contact = Contact.delete_by_id contact_id
+    render json: not_found_error, status: :not_found and return unless contact
+    render json: {}, status: :ok
   end
 
   def create
